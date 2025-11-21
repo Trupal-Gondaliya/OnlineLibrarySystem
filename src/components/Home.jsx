@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWater } from '@fortawesome/free-solid-svg-icons'
-
 function Home() {
     return (
         <div className="flex flex-col md:flex-row items-center justify-between px-12 py-16 bg-gray-50 min-h-[80vh]">
