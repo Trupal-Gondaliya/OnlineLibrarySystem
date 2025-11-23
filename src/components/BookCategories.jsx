@@ -1,10 +1,11 @@
 import { useState } from "react";
 import bookCategoriesData from "../utils/bookCategoriesData";
+import { Link } from "react-router-dom";
 
-function BookCategories() {
+function BookCategories({ itemPreview }) {
 
     const [startIndex, setStartIndex] = useState(0);
-    const itemPreview = 3;
+    // const itemPreview = 3;
 
     const handleNext = () => {
         if (startIndex + itemPreview < bookCategoriesData.length) {
@@ -32,14 +33,16 @@ function BookCategories() {
                     disabled={startIndex === 0}>&lt;</button>
                 <div className="flex gap-6">
                     {visibleItems.map((data) => (
-                        <div
-                            key={data.id}
-                            className="flex flex-col items-center w-full h-[230px]">
-                            <img src={data.image} className="object-cover w-full h-full"></img>
-                            <h1 className="text-[#264143] text-2xl text-center leading-tight m-2">
-                                {data.title}
-                            </h1>
-                        </div>
+                        <Link to={`/browserbook/${data.title}`}>
+                            <div
+                                key={data.id}
+                                className="flex flex-col items-center w-full h-[230px]">
+                                <img src={data.image} className="object-cover w-full h-full" />
+                                <h1 className="text-[#264143] text-2xl text-center m-2">
+                                    {data.title}
+                                </h1>
+                            </div>
+                        </Link>
                     ))}
                 </div>
                 <button onClick={handleNext}

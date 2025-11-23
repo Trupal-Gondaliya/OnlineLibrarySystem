@@ -1,5 +1,6 @@
 import allBooksData from "../utils/allBooksData";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function BrowseBooks() {
     const [selectedAuthor, setSelectedAuthor] = useState([]);
@@ -10,9 +11,20 @@ function BrowseBooks() {
 
     const categories = [...new Set(allBooksData.map(book => book.category))];
 
+    const { title: categoryFromURL } = useParams();
+
     const filteredBooks = allBooksData.filter(book => {
         const matchAuthor = selectedAuthor.length === 0 || selectedAuthor.includes(book.author);
-        const matchCategory = selectedCategory.length === 0 || selectedCategory.includes(book.category);
+        let matchCategory = true;
+        
+        if (categoryFromURL) {
+            matchCategory = book.category.toLowerCase() === categoryFromURL.toLowerCase();
+        }
+        else if (selectedCategory.length > 0) {
+            matchCategory = selectedCategory.includes(book.category);
+        } else {
+           matchCategory = true;
+        }
         const matchSearch = book.title.toLowerCase().includes(search.toLowerCase());
         return matchAuthor && matchCategory && matchSearch;
     });
@@ -31,15 +43,15 @@ function BrowseBooks() {
 
     return (
         <div className="flex gap-6 px-30 py-20 bg-gray-100">
-            
+
             <div className="w-[250px] space-y-6">
 
                 <div>
                     <h1 className="font-bold text-3xl mb-2 text-[#3bc4e1]">Author</h1>
                     {authors.map(author => (
                         <label key={author} className="flex items-center gap-2 mb-1">
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 onChange={() => toggleAuthor(author)}
                             />
                             <span>{author}</span>
@@ -51,8 +63,8 @@ function BrowseBooks() {
                     <h1 className="font-bold text-3xl mb-2 text-[#3bc4e1]">Category</h1>
                     {categories.map(cat => (
                         <label key={cat} className="flex items-center gap-2 mb-1">
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 onChange={() => toggleCategory(cat)}
                             />
                             <span>{cat}</span>
@@ -62,9 +74,9 @@ function BrowseBooks() {
             </div>
 
             <div className="flex-1">
-                
+
                 <div className="mb-4">
-                    <input 
+                    <input
                         type="text"
                         placeholder="Search books..."
                         className="w-full p-2 border rounded-lg shadow-sm"
@@ -75,11 +87,11 @@ function BrowseBooks() {
 
                 <div className="grid grid-cols-1 gap-4">
                     {filteredBooks.map(book => (
-                        <div 
+                        <div
                             key={book.id}
                             className="flex gap-4 items-center p-4 bg-white rounded-xl shadow">
-                            <img 
-                                src={book.image} 
+                            <img
+                                src={book.image}
                                 alt={book.title}
                                 className="w-28 h-36 object-cover rounded-lg"
                             />
