@@ -1,6 +1,7 @@
 import allBooksData from "../utils/allBooksData";
-import { use, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function BrowseBooks() {
     const [selectedAuthor, setSelectedAuthor] = useState([]);
@@ -12,22 +13,44 @@ function BrowseBooks() {
     const categories = [...new Set(allBooksData.map(book => book.category))];
 
     const { title: categoryFromURL } = useParams();
+    const [urlCategory, setUrlCategory] = useState(categoryFromURL);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (selectedCategory.length > 0 || selectedAuthor.length > 0) {
+            setUrlCategory(null);
+            navigate("/browsebook", { replace: true });
+        }
+    }, [selectedCategory, selectedAuthor]);
 
     const filteredBooks = allBooksData.filter(book => {
-        const matchAuthor = selectedAuthor.length === 0 || selectedAuthor.includes(book.author);
+
+        let matchAuthor = true;
+
+        if (selectedAuthor.length > 0) {
+            matchAuthor = selectedAuthor.includes(book.author);
+        }
+
         let matchCategory = true;
-        
-        if (categoryFromURL) {
-            matchCategory = book.category.toLowerCase() === categoryFromURL.toLowerCase();
-        }
-        else if (selectedCategory.length > 0) {
-            matchCategory = selectedCategory.includes(book.category);
+
+        if (urlCategory) {
+            if (selectedCategory.length === 0 && selectedAuthor.length === 0) {
+                matchCategory = book.category.toLowerCase() === urlCategory.toLowerCase();
+            } else {
+                matchCategory = true;
+            }
         } else {
-           matchCategory = true;
+            if (selectedCategory.length > 0) {
+                matchCategory = selectedCategory.includes(book.category);
+            }
         }
-        const matchSearch = book.title.toLowerCase().includes(search.toLowerCase());
+
+        const matchSearch =
+            book.title.toLowerCase().includes(search.toLowerCase());
+
         return matchAuthor && matchCategory && matchSearch;
     });
+
 
     const toggleAuthor = (author) => {
         setSelectedAuthor(prev =>

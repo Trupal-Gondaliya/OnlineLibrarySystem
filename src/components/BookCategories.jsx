@@ -33,7 +33,7 @@ function BookCategories({ itemPreview }) {
                     disabled={startIndex === 0}>&lt;</button>
                 <div className="flex gap-6">
                     {visibleItems.map((data) => (
-                        <Link to={`/browserbook/${data.title}`}>
+                        <Link to={`/browsebook/category/${data.title}`}>
                             <div
                                 key={data.id}
                                 className="flex flex-col items-center w-full h-[230px]">
