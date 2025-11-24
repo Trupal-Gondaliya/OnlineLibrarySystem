@@ -1,16 +1,17 @@
-import allBooksData from "../utils/allBooksData";
+// import allBooksData from "../utils/allBooksData";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function BrowseBooks() {
+    const book = useSelector(store => store.books.books);
     const [selectedAuthor, setSelectedAuthor] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [search, setSearch] = useState("");
 
-    const authors = [...new Set(allBooksData.map(book => book.author))];
+    const authors = [...new Set(book.map(book => book.author))];
 
-    const categories = [...new Set(allBooksData.map(book => book.category))];
+    const categories = [...new Set(book.map(book => book.category))];
 
     const { title: categoryFromURL } = useParams();
     const [urlCategory, setUrlCategory] = useState(categoryFromURL);
@@ -23,7 +24,7 @@ function BrowseBooks() {
         }
     }, [selectedCategory, selectedAuthor]);
 
-    const filteredBooks = allBooksData.filter(book => {
+    const filteredBooks = book.filter(book => {
 
         let matchAuthor = true;
 

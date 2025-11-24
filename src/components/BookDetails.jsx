@@ -1,11 +1,16 @@
-import { useParams,useNavigate } from "react-router-dom";
-import allBooksData from "../utils/allBooksData";
+import { useParams, useNavigate } from "react-router-dom";
+// import allBooksData from "../utils/allBooksData";     // used before redux
+import { useSelector } from "react-redux";
 
 function BookDetails() {
     const param = useParams();
     const navigate = useNavigate();
-    const bookData = allBooksData.find(book => String(book.id) === String(param.id));
 
+    const books = useSelector(store => store.books.books);
+    const bookData = books.find(b => String(b.id) === String(param.id));
+
+    // used before redux
+    // const bookData = allBooksData.find(book => String(book.id) === String(param.id));
 
     return (
         <>
