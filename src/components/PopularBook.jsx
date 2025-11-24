@@ -1,4 +1,5 @@
 import popularBooksData from "../utils/popularBooksData";
+import { Link } from "react-router-dom";
 
 function PopularBook() {
     return (
@@ -13,7 +14,7 @@ function PopularBook() {
                     <div
                         key={data.id}
                         className="flex flex-col items-center w-[200px] h-[370px] bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-4">
-                        
+
                         <div className="w-40 h-[250px] overflow-hidden rounded-lg bg-gray-100 flex items-center justify-center">
                             <img
                                 src={data.image}
@@ -30,9 +31,10 @@ function PopularBook() {
                             ⭐ {data.rating}
                         </p>
 
-                        <button
-                        className="bg-[#3bc4e1] rounded-4xl p-2 m-2">
-                            View Details</button>
+                        <Link to={`/bookDetails/${data.id}`}>
+                            <button className="bg-[#3bc4e1] rounded-4xl p-2 m-2">
+                                View Details</button>
+                        </Link>
                     </div>
                 ))}
 

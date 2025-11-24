@@ -1,6 +1,6 @@
 import allBooksData from "../utils/allBooksData";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function BrowseBooks() {
@@ -112,13 +112,13 @@ function BrowseBooks() {
                     {filteredBooks.map(book => (
                         <div
                             key={book.id}
-                            className="flex gap-4 items-center p-4 bg-white rounded-xl shadow">
+                            className="flex gap-4 items-start p-4 bg-white rounded-xl shadow">
                             <img
                                 src={book.image}
                                 alt={book.title}
-                                className="w-28 h-36 object-cover rounded-lg"
+                                className="w-28 h-full object-cover rounded-lg"
                             />
-                            <div>
+                            <div className="flex flex-col gap-2 w-full">
                                 <h2 className="font-bold text-xl text-[#3bc4e1]">{book.title}</h2>
                                 <p className="text-gray-600 text-sm">Author : {book.author}</p>
                                 <p className="text-gray-500 text-sm">Category : {book.category}</p>
@@ -126,6 +126,11 @@ function BrowseBooks() {
                                 <p className="text-yellow-600 font-semibold">
                                     ⭐ {book.rating}
                                 </p>
+                                <Link to={`/bookDetails/${book.id}`} className="mt-2">
+                                    <button className="block w-full text-[#3bc4e1] border border-[#3bc4e1] rounded-lg py-2 text-center hover:bg-[#3bc4e1] hover:text-white transition">
+                                        View Details
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     ))}
