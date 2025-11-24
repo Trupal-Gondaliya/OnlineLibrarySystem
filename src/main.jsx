@@ -8,6 +8,7 @@ import Home from './components/Home.jsx'
 import BookCategories from './components/BookCategories.jsx'
 import PopularBook from './components/PopularBook.jsx'
 import Footer from './components/Footer.jsx'
+import BookDetails from './components/BookDetails.jsx'
 
 const appRouter = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const appRouter = createBrowserRouter([
       {
         path :"/browsebook/category/:title",
         element : <BrowseBooks />
+      },
+      {
+        path : "/bookDetails/:id",
+        element : <BookDetails />
       }
     ]
   }
