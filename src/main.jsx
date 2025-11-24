@@ -9,6 +9,9 @@ import BookCategories from './components/BookCategories.jsx'
 import PopularBook from './components/PopularBook.jsx'
 import Footer from './components/Footer.jsx'
 import BookDetails from './components/BookDetails.jsx'
+import  {Provider} from "react-redux"
+import bookStore from './redux/bookStore.js'
+import AddBook from './components/AddBook.jsx'
 
 const appRouter = createBrowserRouter([
   {
@@ -37,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path : "/bookDetails/:id",
         element : <BookDetails />
+      },
+      {
+        path : "/addbook",
+        element : <AddBook />
       }
     ]
   }
@@ -44,6 +51,8 @@ const appRouter = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={appRouter} />
+    <Provider store = {bookStore}>
+      <RouterProvider router={appRouter} />
+    </Provider>
   </StrictMode>,
 )
