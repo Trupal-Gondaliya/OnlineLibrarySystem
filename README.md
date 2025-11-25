@@ -1,16 +1,72 @@
-# React + Vite
+React Online Library System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an online library system built using React and Vite. It includes browsing, filtering, adding books using Redux, dynamic routing, and a 404 page.
 
-Currently, two official plugins are available:
+FEATURES
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Home Page
+- Displays welcome message
+- Shows book categories
+- Shows popular books in card format
+- Navigation bar includes Home, Browse Books, and Add Book
 
-## React Compiler
+# Browse Books Page
+- Displays list of all books
+- Filter books by category
+- Supports dynamic routing using : /bookDetails/:id
+- Search books by title or author
+- Each book has a View Details button
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Book Details Page
+- Dynamic route for each book
+- Shows title, author, description, and rating
+- Back to Browse button
 
-## Expanding the ESLint configuration
+# Add Book Page
+- Form to add a new book
+- Uses Redux for managing book list
+- Newly added book appears at the top
+- Form validation included
+- After submit, user is redirected to Browse Books page
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 404 Page
+- Shown for invalid URLs
+- Displays invalid route text
+- Header not included on this page
+- Contains a link to go back to Home
+
+# Styling
+- Styled using Tailwind CSS
+- Fully responsive and user-friendly
+
+# TECH STACK
+- React
+- Vite
+- Redux Toolkit
+- React Router DOM
+- Tailwind CSS
+
+# INSTALLATION & SETUP
+
+1. Clone the repository:
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+
+2. Install  All Dependencies:
+    npm install
+    (This will automatically install All These Dependencies which required to this app.)
+
+3. Setup Tailwind CSS
+    npm install tailwindcss @tailwindcss/vite
+
+4. Run the project:
+    npm run dev
+
+# FOLDER STRUCTURE
+src/
+    assets/
+    components/
+    redux/
+utils/
+App.jsx
+main.jsx
