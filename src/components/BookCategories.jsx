@@ -8,7 +8,7 @@ function BookCategories({ itemPreview }) {
     // const itemPreview = 3;
 
     const handleNext = () => {
-        if (startIndex + itemPreview < bookCategoriesData.length) {
+        if (startIndex < bookCategoriesData.length - itemPreview) {
             setStartIndex(startIndex + 1);
         }
     };
@@ -19,35 +19,34 @@ function BookCategories({ itemPreview }) {
         }
     };
 
-    const visibleItems = bookCategoriesData.slice(
-        startIndex,
-        startIndex + itemPreview
-    );
+    const CARD_WIDTH = 280;
 
     return (
         <div className="px-12 py-16">
             <h1 className="text-5xl text-[#3bc4e1] font-bold">Book Categories</h1>
-            <div className="flex items-center gap-4 px-4 mt-14 justify-between">
+            <div className="flex items-center gap-4 px-4 mt-14">
                 <button onClick={handlePrev}
-                    className="text-2xl font-bold bg-[#3bc4e1] px-3 pb-1 text-white hover:bg-amber-200 disabled:hover:bg-[#3bc4e1] disabled:opacity-30"
+                    className="bg-[#3bc4e1] text-white px-4 py-2 rounded font-bold text-xl disabled:opacity-30"
                     disabled={startIndex === 0}>&lt;</button>
-                <div className="flex gap-6">
-                    {visibleItems.map((data) => (
-                        <Link to={`/browsebook/category/${data.title}`}>
-                            <div
-                                key={data.id}
-                                className="flex flex-col items-center w-full h-[230px]">
-                                <img src={data.image} className="object-cover w-full h-full" />
+
+                <div className="w-full overflow-hidden">
+
+                    <div className="flex transition-transform duration-500 ease-in-out"
+                        style={{ transform: `translateX(-${startIndex * CARD_WIDTH}px)` }}>
+
+                        {bookCategoriesData.map((data) => (
+                            <Link to={`/browsebook/category/${data.title}`} key={data.id} className="w-[260px] mx-3 shrink-0">
+                                <img src={data.image} className="h-[200px] w-full object-cover " />
                                 <h1 className="text-[#264143] text-2xl text-center m-2">
                                     {data.title}
                                 </h1>
-                            </div>
-                        </Link>
-                    ))}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
                 <button onClick={handleNext}
-                    className="text-2xl font-bold bg-[#3bc4e1] px-3 pb-1 text-white hover:bg-amber-200 disabled:hover:bg-[#3bc4e1] disabled:opacity-30"
-                    disabled={startIndex + itemPreview >= bookCategoriesData.length}>&gt;</button>
+                    className="bg-[#3bc4e1] text-white px-4 py-2 rounded font-bold text-xl disabled:opacity-30"
+                    disabled={startIndex >= bookCategoriesData.length - itemPreview }>&gt;</button>
             </div>
         </div >
     );
