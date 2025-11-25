@@ -12,6 +12,7 @@ import BookDetails from './components/BookDetails.jsx'
 import  {Provider} from "react-redux"
 import bookStore from './redux/bookStore.js'
 import AddBook from './components/AddBook.jsx'
+import NotFound from './components/NotFound.jsx'
 
 const appRouter = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const appRouter = createBrowserRouter([
         element : <AddBook />
       }
     ]
+  },
+  {
+    path: "*",
+    element: <NotFound />
   }
 ])
 
