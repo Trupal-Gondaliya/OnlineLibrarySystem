@@ -55,7 +55,7 @@ function AddBook() {
       category: form.category,
       shortDescription: form.shortDescription,
       longDescription: form.longDescription,
-      image: form.image || "/default-book.png", 
+      image: form.image || "https://placehold.co/400x600?text=Image", 
       rating: Number(form.rating),
       details: {
         publishedDate: form.publishedDate || "Unknown",
