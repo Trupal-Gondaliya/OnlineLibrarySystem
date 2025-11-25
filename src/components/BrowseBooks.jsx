@@ -8,6 +8,7 @@ function BrowseBooks() {
     const [selectedAuthor, setSelectedAuthor] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [search, setSearch] = useState("");
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const authors = [...new Set(book.map(book => book.author))];
 
@@ -65,35 +66,72 @@ function BrowseBooks() {
         );
     };
 
+    const AllAuthor = ({ drawer }) => (
+        <>
+            {authors.map(author => (
+                <label key={author} className="flex items-center gap-2 mb-2">
+                    <input
+                        type="checkbox"
+                        checked={selectedAuthor.includes(author)}
+                        onChange={() => { toggleAuthor(author); drawer && drawer(); }}
+                    />
+                    <span>{author}</span>
+                </label>
+            ))}
+        </>
+    );
+
+    const AllCategories = ({drawer}) => (
+        <>
+            {categories.map(cat => (
+                <label key={cat} className="flex items-center gap-2 mb-2">
+                    <input
+                        type="checkbox"
+                        checked={selectedCategory.includes(cat)}
+                        onChange={() => { toggleCategory(cat); drawer && drawer();}}
+                    />
+                    <span>{cat}</span>
+                </label>
+            ))}
+        </>
+    );
+
     return (
-        <div className="flex gap-6 px-30 py-20 bg-gray-100">
+        <div className="px-4 py-6 md:px-30 md:py-20 bg-gray-100 flex md:flex-row flex-col gap-6 relative">
+            {/* Mobile UI */}
+            <button
+                className="md:hidden bg-[#3bc4e1] text-white px-4 py-2 rounded-lg font-semibold mb-4 w-32 fixed"
+                onClick={() => setDrawerOpen(true)}>
+                Filter ☰</button>
 
-            <div className="w-[250px] space-y-6">
+            <div className={`
+                fixed top-0 left-0 h-full overflow-y-scroll w-full bg-white shadow-xl p-5 z-50
+                transform transition-transform duration-300
+                ${drawerOpen ? "translate-x-0" : "-translate-x-full"}
+                md:hidden`}>
 
+                <button
+                    className="font-bold text-xl absolute right-4 top-4"
+                    onClick={() => setDrawerOpen(false)}>
+                    ❌</button>
+
+                <h1 className="font-bold text-2xl mb-4 text-[#3bc4e1] mt-8">Author</h1>
+                <AllAuthor drawer={() => setDrawerOpen(false)} />
+
+                <h1 className="font-bold text-2xl mt-5 mb-4 text-[#3bc4e1]">Category</h1>
+                <AllCategories drawer={() => setDrawerOpen(false)} />
+            </div>
+
+            {/* Desktop UI */}
+            <div className="w-[250px] space-y-6 hidden md:block">
                 <div>
                     <h1 className="font-bold text-3xl mb-2 text-[#3bc4e1]">Author</h1>
-                    {authors.map(author => (
-                        <label key={author} className="flex items-center gap-2 mb-1">
-                            <input
-                                type="checkbox"
-                                onChange={() => toggleAuthor(author)}
-                            />
-                            <span>{author}</span>
-                        </label>
-                    ))}
+                    <AllAuthor />
                 </div>
 
                 <div>
                     <h1 className="font-bold text-3xl mb-2 text-[#3bc4e1]">Category</h1>
-                    {categories.map(cat => (
-                        <label key={cat} className="flex items-center gap-2 mb-1">
-                            <input
-                                type="checkbox"
-                                onChange={() => toggleCategory(cat)}
-                            />
-                            <span>{cat}</span>
-                        </label>
-                    ))}
+                    <AllCategories />
                 </div>
             </div>
 
@@ -103,7 +141,7 @@ function BrowseBooks() {
                     <input
                         type="text"
                         placeholder="Search books..."
-                        className="w-full p-2 border rounded-lg shadow-sm"
+                        className="w-full p-2 border rounded-lg shadow-sm mt-16"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />

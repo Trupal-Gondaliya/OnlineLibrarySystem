@@ -8,7 +8,7 @@ function PopularBook() {
                 Popular Books
             </h1>
 
-            <div className="flex gap-8 flex-wrap">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 place-items-center sm:place-items-start">
 
                 {popularBooksData.map((data) => (
                     <div

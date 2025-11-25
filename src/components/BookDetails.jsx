@@ -30,7 +30,7 @@ function BookDetails() {
                                 <img
                                     src={bookData.image}
                                     alt={bookData.title}
-                                    className="w-full rounded-xl shadow-lg"
+                                    className="w-full"
                                 />
                             </div>
 

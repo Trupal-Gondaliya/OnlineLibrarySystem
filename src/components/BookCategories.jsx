@@ -24,7 +24,7 @@ function BookCategories({ itemPreview }) {
     return (
         <div className="px-12 py-16">
             <h1 className="text-5xl text-[#3bc4e1] font-bold">Book Categories</h1>
-            <div className="flex items-center gap-4 px-4 mt-14">
+            <div className="flex flex-col sm:flex-row items-center gap-4 px-4 mt-14 ">
                 <button onClick={handlePrev}
                     className="bg-[#3bc4e1] text-white px-4 py-2 rounded font-bold text-xl disabled:opacity-30"
                     disabled={startIndex === 0}>&lt;</button>
@@ -35,8 +35,8 @@ function BookCategories({ itemPreview }) {
                         style={{ transform: `translateX(-${startIndex * CARD_WIDTH}px)` }}>
 
                         {bookCategoriesData.map((data) => (
-                            <Link to={`/browsebook/category/${data.title}`} key={data.id} className="w-[260px] mx-3 shrink-0">
-                                <img src={data.image} className="h-[200px] w-full object-cover " />
+                            <Link to={`/browsebook/category/${data.title}`} key={data.id} className="min-w-[200px] w-[200px] md:w-[260px] mx-3 shrink-0">
+                                <img src={data.image} className="h-[180PX] md:h-[200px]  w-full object-cover " />
                                 <h1 className="text-[#264143] text-2xl text-center m-2">
                                     {data.title}
                                 </h1>
